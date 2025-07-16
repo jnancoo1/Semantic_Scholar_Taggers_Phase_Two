@@ -522,7 +522,15 @@ QBIO_CATEGORIES = {
     "q-bio","q-bio.BM", "q-bio.CB", "q-bio.GN", "q-bio.MN", "q-bio.NC", "q-bio.OT", "q-bio.PE", "q-bio.QM", "q-bio.SC", "q-bio.TO"
 }
 
+Agricultural_Categories = {
+    "afs.AGR", "afs.AFS", "afs.ANI", "afs.ENV", "afs.ENG", "afs.FOO", "afs.HOR", "afs.PLA", "afs.SOI", "afs.OTHER"
+}
 
+def is_agriculture_paper(metadata):
+    """Check if paper belongs to agricultural categories."""
+    categories = metadata.get("categories", "")
+    cats = set(categories.split())
+    return bool(Agricultural_Categories & cats)
 
 def is_physics_paper(metadata):
     """Check if paper belongs to physics categories."""
@@ -612,6 +620,8 @@ def process_json_file(input_file: str, output_file: str = None, physics_only: bo
                         continue
                     if qbio_only and not is_qbio_paper(metadata):
                         continue
+                    if agriculture_only and not is_agriculture_paper(metadata):
+                        continue
 
                     physics_count += 1
                     subtopic = converter.convert_metadata(metadata)
@@ -695,6 +705,7 @@ if __name__ == "__main__":
     output_file = None
     physics_only = True
     qbio_only = False
+    agriculture_only = False
 
     # Parse additional arguments
     if len(sys.argv) > 2:
@@ -705,6 +716,10 @@ if __name__ == "__main__":
             elif arg == '--qbio':
                 physics_only = False
                 qbio_only = True
+            elif arg == '--agri':
+                physics_only = False
+                qbio_only = False
+                agriculture_only = True
             elif not arg.startswith('--'):
                 output_file = arg
 

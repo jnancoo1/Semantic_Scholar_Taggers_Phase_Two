@@ -543,7 +543,7 @@ def is_qbio_paper(metadata):
     cats = set(categories.split())
     return bool(QBIO_CATEGORIES & cats)
 
-def process_json_file(input_file: str, output_file: str = None, physics_only: bool = True, qbio_only: bool = False):
+def process_json_file(input_file: str, output_file: str = None, physics_only: bool = True, qbio_only: bool = False,agriculture_only: bool = False) -> List[Dict[str, Any]]:
     """Process ArXiv metadata from JSON file."""
     import os
 
@@ -577,6 +577,9 @@ def process_json_file(input_file: str, output_file: str = None, physics_only: bo
                                 continue
                             if qbio_only and not is_qbio_paper(metadata):
                                 continue
+                            if agriculture_only and not is_agriculture_paper(metadata):
+                                continue
+                        
 
                             physics_count += 1
                             subtopic = converter.convert_metadata(metadata)
@@ -723,7 +726,7 @@ if __name__ == "__main__":
                 output_file = arg
 
     try:
-        results = process_json_file(input_file, output_file, physics_only, qbio_only)
+        results = process_json_file(input_file, output_file, physics_only, qbio_only, agriculture_only)
 
         if not output_file:
             print(f"\nUse --help for more options")

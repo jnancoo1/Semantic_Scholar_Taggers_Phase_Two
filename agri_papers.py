@@ -475,18 +475,17 @@ def print_subtopic(subtopic):
 def get_category_description(category):
     """Get human-readable description for ArXiv categories."""
     descriptions = {
-        # Quantitative Biology
-        'q-bio.BM': 'Biomolecules',
-        'q-bio.CB': 'Cell Behavior',
-        'q-bio.GN': 'Genomics',
-        'q-bio.MN': 'Molecular Networks',
-        'q-bio.NC': 'Neurons and Cognition',
-        'q-bio.OT': 'Other Quantitative Biology',
-        'q-bio.PE': 'Populations and Evolution',
-        'q-bio.QM': 'Quantitative Methods',
-        'q-bio.SC': 'Subcellular Processes',
-        'q-bio.TO': 'Tissues and Organs',
-
+        #agricultural and food sciences
+        "afs.AGR": "Agricultural Sciences",
+        "afs.AFS": "Agricultural and Food Sciences",
+        "afs.ANI": "Animal Sciences",
+        "afs.ENV": "Environmental Sciences",
+        "afs.ENG": "Engineering in Agriculture",
+        "afs.FOO": "Food Sciences",
+        "afs.HOR": "Horticulture",
+        "afs.PLA": "Plant Sciences",
+        "afs.SOI": "Soil Sciences",
+        "afs.OTHER": "Other Agricultural Sciences",
     }
     return descriptions.get(category, category)
 
